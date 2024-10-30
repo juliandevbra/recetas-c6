@@ -1,16 +1,16 @@
-// import {cardContainer} from "../styles/Card.module.css";
 import CardStyles from "../styles/Card.module.css";
-// console.log(cardContainer)
-console.log(CardStyles);
-const Card = ({ receta }) => {
-  // console.log(receta);
+import Counter from "./Counter";
+
+const Card = ({ receta, setCart, cart }) => {
   const { tipo, img, precio } = receta;
   return (
     <div className={CardStyles.cardContainer}>
       <img src={img} alt={tipo} />
       <h3>{tipo}</h3>
       <h4>{precio}</h4>
-      <button>Agregar</button>
+      <Counter />
+      {/* <button onClick={() => setCart((prev) => [...prev, receta])}> */}
+      <button onClick={() => setCart([...cart, receta])}>Agregar</button>
     </div>
   );
 };
