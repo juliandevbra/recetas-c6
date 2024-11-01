@@ -1,7 +1,7 @@
 import CardStyles from "../styles/Card.module.css";
 import Counter from "./Counter";
 
-const Card = ({ receta, setCart, cart }) => {
+const Card = ({ receta, setCart }) => {
   const { tipo, img, precio } = receta;
   return (
     <div className={CardStyles.cardContainer}>
@@ -9,8 +9,9 @@ const Card = ({ receta, setCart, cart }) => {
       <h3>{tipo}</h3>
       <h4>{precio}</h4>
       <Counter />
-      {/* <button onClick={() => setCart((prev) => [...prev, receta])}> */}
-      <button onClick={() => setCart([...cart, receta])}>Agregar</button>
+      <button onClick={() => setCart((prevState) => [...prevState, receta])}>
+        Agregar
+      </button>
     </div>
   );
 };

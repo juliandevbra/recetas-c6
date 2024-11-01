@@ -4,7 +4,7 @@ import Card from "./Card";
 
 const Home = () => {
   const [cart, setCart] = useState([]);
-  console.log(cart);
+
   return (
     <div className="list-container">
       {pizzas.map((pizza) => {
