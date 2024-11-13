@@ -17,6 +17,17 @@ const Form = () => {
     event.preventDefault();
     const regexNum = /\d/; // [0-9]
     console.log(regexNum.test(user.direccion));
+
+    // let regex = /^\s/
+
+    // !regex.text(nombre)
+
+    // nombre[0] !== " "
+
+    // " Raul"
+    // nombre[0] = " "
+    // nombre.startsWith(" ")
+
     if (
       user.nombre.trim().length >= 3 &&
       regexNum.test(user.direccion) &&
