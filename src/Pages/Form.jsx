@@ -1,32 +1,19 @@
 import { useState } from "react";
-import Message from "./Message";
+import Message from "../Components/Message";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
-  //   const [nombre, setNombre] = useState("");
-  //   const [direccion, setDireccion] = useState("");
-
   const [user, setUser] = useState({
     nombre: "",
     direccion: "",
   });
-
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [error, setError] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const regexNum = /\d/; // [0-9]
-    console.log(regexNum.test(user.direccion));
-
-    // let regex = /^\s/
-
-    // !regex.text(nombre)
-
-    // nombre[0] !== " "
-
-    // " Raul"
-    // nombre[0] = " "
-    // nombre.startsWith(" ")
+    const regexNum = /\d/;
 
     if (
       user.nombre.trim().length >= 3 &&
@@ -35,6 +22,9 @@ const Form = () => {
     ) {
       setShow(true);
       setError(false);
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } else {
       setError(true);
     }
@@ -42,7 +32,6 @@ const Form = () => {
   console.log(user);
   return (
     <div>
-      {/* {condicion ? true : false} */}
       {show ? (
         <Message nombre={user.nombre} direccion={user.direccion} />
       ) : (
@@ -76,16 +65,3 @@ const Form = () => {
 };
 
 export default Form;
-
-// document.addEventListener('keypress', (e) => {
-//     console.log(event)
-//     if(e.key === 'F'){
-
-//     }
-// })
-
-// if(condicion){
-//     //que pasa si condicion es true
-// } else {
-//     //que pasa si condicion es false
-// }
