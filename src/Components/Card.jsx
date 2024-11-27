@@ -1,9 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import CardStyles from "../styles/Card.module.css";
 import Counter from "./Counter";
+import { useRecipeStates } from "../Context/Context";
+import { useState } from "react";
 
-const Card = ({ receta, setCart }) => {
+const Card = ({ receta }) => {
   const { title, image, pricePerServing, id } = receta;
+  const { setCart } = useRecipeStates();
+  const [counter, setCounter] = useState(0);
+
+  const location = useLocation();
+  // console.log(location);
+
   return (
     <div className={CardStyles.cardContainer}>
       <Link to={`/detail/${id}`}>
@@ -11,10 +19,24 @@ const Card = ({ receta, setCart }) => {
         <h3>{title}</h3>
       </Link>
       <h4>${pricePerServing}</h4>
-      <Counter />
-      <button onClick={() => setCart((prevState) => [...prevState, receta])}>
-        Agregar
-      </button>
+      {location.pathname == "/cart" ? (
+        <h3>Platos agregados: {receta.counter}</h3>
+      ) : (
+        <>
+          <Counter counter={counter} setCounter={setCounter} />
+          <button
+            disabled={counter == 0}
+            onClick={() =>
+              setCart((prevState) => [
+                ...prevState,
+                { ...receta, counter: counter },
+              ])
+            }
+          >
+            Agregar
+          </button>
+        </>
+      )}
     </div>
   );
 };
