@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const Card = ({ receta }) => {
   const { title, image, pricePerServing, id } = receta;
-  const { setCart } = useRecipeStates();
+  const { dispatch } = useRecipeStates();
   const [counter, setCounter] = useState(0);
 
   const location = useLocation();
@@ -26,11 +26,16 @@ const Card = ({ receta }) => {
           <Counter counter={counter} setCounter={setCounter} />
           <button
             disabled={counter == 0}
-            onClick={() =>
-              setCart((prevState) => [
-                ...prevState,
-                { ...receta, counter: counter },
-              ])
+            onClick={
+              () =>
+                dispatch({
+                  type: "ADD_CART",
+                  payload: { ...receta, counter: counter },
+                })
+              // setCart((prevState) => [
+              //   ...prevState,
+              // { ...receta, counter: counter },
+              // ])
             }
           >
             Agregar
