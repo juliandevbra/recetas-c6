@@ -3,6 +3,7 @@ import CardStyles from "../styles/Card.module.css";
 import Counter from "./Counter";
 import { useRecipeStates } from "../Context/Context";
 import { useState } from "react";
+import { Flip, toast } from "react-toastify";
 
 const Card = ({ receta }) => {
   const { title, image, pricePerServing, id } = receta;
@@ -10,8 +11,19 @@ const Card = ({ receta }) => {
   const [counter, setCounter] = useState(0);
 
   const location = useLocation();
-  // console.log(location);
-
+  const addCart = () => {
+    toast("Agregado al carrito 🛒", {
+      position: "bottom-right",
+      closeOnClick: true,
+      draggable: true,
+      theme: "dark",
+      transition: Flip,
+    });
+    dispatch({
+      type: "ADD_CART",
+      payload: { ...receta, counter: counter },
+    });
+  };
   return (
     <div className={CardStyles.cardContainer}>
       <Link to={`/detail/${id}`}>
@@ -24,20 +36,7 @@ const Card = ({ receta }) => {
       ) : (
         <>
           <Counter counter={counter} setCounter={setCounter} />
-          <button
-            disabled={counter == 0}
-            onClick={
-              () =>
-                dispatch({
-                  type: "ADD_CART",
-                  payload: { ...receta, counter: counter },
-                })
-              // setCart((prevState) => [
-              //   ...prevState,
-              // { ...receta, counter: counter },
-              // ])
-            }
-          >
+          <button disabled={counter == 0} onClick={addCart}>
             Agregar
           </button>
         </>

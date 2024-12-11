@@ -1,21 +1,30 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import { getRecipe } from "../Services/apiCalls";
+import withErrorBoundary from "../helpers/withErrorBoundary";
 
 const Detail = () => {
-  const [recipe, setRecipe] = useState({});
+  const [recipe, setRecipe] = useState();
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
 
   const url = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${
     import.meta.env.VITE_API_KEY
   }`;
 
   useEffect(() => {
-    axios(url).then((res) => {
-      console.log(res.data);
-      setRecipe(res.data);
-    });
+    // axios(url).then((res) => {
+    //   console.log(res.data);
+    //   setRecipe(res.data);
+    // }).catch(err => {console.log(err)});
+    const fetchRecipe = async () => {
+      const data = await getRecipe(url);
+      console.log(data);
+      setRecipe(data);
+    };
+    fetchRecipe();
   }, []);
 
   return (
@@ -28,4 +37,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default withErrorBoundary(Detail);

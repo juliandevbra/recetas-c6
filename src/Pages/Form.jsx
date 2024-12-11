@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Message from "../Components/Message";
 import { useNavigate } from "react-router-dom";
+import withErrorBoundary from "../helpers/withErrorBoundary";
 
 const Form = () => {
   const [user, setUser] = useState({
@@ -64,4 +65,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default withErrorBoundary(Form);
